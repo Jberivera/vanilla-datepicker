@@ -1,2 +1,2 @@
 # datepicker
-Stand Alone Date Picker
+Stand Alone Javascript Date Picker

@@ -1,0 +1,27 @@
+{
+  "name": "datepicker",
+  "version": "1.0.0",
+  "description": "Javascript DatePicker",
+  "main": "datepicker.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "browserify datepicker.js -o build/datepicker.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jberivera/datepicker.git"
+  },
+  "keywords": [
+    "datepicker",
+    "javascript"
+  ],
+  "author": "jberivera",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Jberivera/datepicker/issues"
+  },
+  "homepage": "https://github.com/Jberivera/datepicker#readme",
+  "devDependencies": {
+    "browserify": "^13.1.1"
+  }
+}
