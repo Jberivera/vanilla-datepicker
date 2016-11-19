@@ -1,0 +1,87 @@
+html,
+body {
+  position: relative;
+  height: 100%;
+}
+
+.heading {
+  font-family: 'Rock Salt', cursive;
+  font-size: 45px;
+  color: #333;
+  width: 300px;
+  line-height: 1;
+  text-align: left;
+  margin: auto;
+}
+
+.heading__first {
+  padding-left: 10px;
+}
+
+.input {
+  background-color: #fff;
+  border: 2px solid #333;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
+  font-size: 16px;
+  line-height: 24px;
+  color: #333;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0;
+}
+
+.section {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 40px;
+  margin-bottom: 60px;
+}
+
+.section__group {
+  margin-right: 20px;
+}
+
+.blue .date__header {
+  background: darkcyan;
+}
+
+.blue .date--active {
+  background: darkcyan;
+}
+
+.blue .date--active:hover {
+  background: darkcyan;
+}
+
+.red .date__header {
+  background: tomato;
+}
+
+.red .date--active {
+  background: tomato;
+}
+
+.red .date--active:hover {
+  background: tomato;
+}
+
+.grey .date__header {
+  background: #333;
+}
+
+.grey .date--active {
+  background: #333;
+}
+
+.grey .date--active:hover {
+  background: #333;
+}

@@ -1,2 +1,78 @@
-# datepicker
-Stand Alone Date Picker
+# Vanilla Datepicker
+
+It is a javascript library without dependencies to provide a consistent datepicker experience through different browsers.
+
+[![npm version](https://img.shields.io/npm/v/vanilla-datepicker.svg?style=flat-square)](https://www.npmjs.com/package/vanilla-datepicker)
+[![npm downloads](https://img.shields.io/npm/dm/vanilla-datepicker.svg?style=flat-square)](https://www.npmjs.com/package/vanilla-datepicker)
+
+## Getting Started
+
+This module is exported by webpack as a UMD bundle library.
+
+`output.libraryTarget: "umd"`
+
+### Install
+
+```bash
+$ npm install vanilla-datepicker --save
+```
+
+### Javascript
+
+```js
+const datepicker = require('vanilla-datepicker');
+
+datepicker();
+```
+
+### Markup
+
+It renders the datepicker through each group of following markup
+
+```html
+<div class="datepicker">
+  <input type="text" class="datepicker__input" />
+</div>
+```
+
+![datepicker](https://i.imgur.com/UgCmG5O.jpg)
+
+### Callback
+
+Provide a callback to get an update (date) from each field and its reference
+
+```js
+const datepicker = require('vanilla-datepicker');
+
+datepicker(function (date, input) {
+  // Default format MM / DD / YYYY
+  input.value = 'A different date format: ' + date.getDate();
+});
+```
+
+### Color change
+
+Use one level of specificity to modify colors
+
+```css
+.app .date__header {
+  background: darkcyan;
+}
+
+.app .date--active {
+  background: darkcyan;
+}
+```
+
+![datepicker](https://i.imgur.com/D6RieHO.jpg)
+
+## Project Dev Tools
+
+- [Webpack](https://webpack.github.io/)
+- [Babel](https://babeljs.io/)
+- [Sass](http://sass-lang.com/)
+
+## Project Scripts
+
+- `npm start`
+- `npm run build`

@@ -1,0 +1,153 @@
+$color-white: #fff;
+$color-gray-alto: #d6d6d6;
+$color-black-rat: #333;
+$color-gallery: #f0f0f0;
+$color-blue-bayoux: #4D6684;
+
+.datepicker {
+  position: relative;
+
+  &--show {
+    & .date {
+      visibility: visible;
+      opacity: 1;
+      z-index: 2;
+    }
+  }
+}
+
+.date {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  visibility: hidden;
+  opacity: 0;
+  font-family: verdana;
+  z-index: -10;
+
+  &__container {
+    display: block;
+    width: 212px;
+    background: $color-white;
+    border: solid 1px $color-gray-alto;
+    padding-bottom: 5px;
+  }
+
+  &__header {
+    position: relative;
+    font-size: 18px;
+    color: $color-white;
+    text-align: center;
+    background: $color-blue-bayoux;
+    padding: 5px;
+  }
+
+  &__header-month,
+  &__header-year {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    outline: 0;
+    font-size: 18px;
+    cursor: pointer;
+    color: $color-white;
+    background: inherit;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+
+  &__header-month {
+    margin-right: 10px;
+  }
+
+  &__days-names {
+    border-bottom: 1px solid #858585;
+  }
+
+  &__day-container {
+    padding: 0;
+    margin: 0;
+  }
+
+  &__day {
+    cursor: pointer;
+
+    &:hover {
+      background: $color-gallery
+    }
+  }
+
+  &__right-arrow,
+  &__left-arrow {
+    position: absolute;
+    display: inline-block;
+    top: 0;
+    width: 40px;
+    height: 100%;
+    cursor: pointer;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      width: 12px;
+      height: 2px;
+      top: 50%;
+      left: 50%;
+      background: $color-white;
+    }
+  }
+
+  &__right-arrow {
+    right: 0;
+
+    &::before,
+    &::after {
+      transform-origin: right;
+    }
+
+    &::before {
+      transform: translate(-50%, -70%) rotate(-45deg);
+    }
+
+    &::after {
+      transform: translate(-50%, -30%) rotate(45deg);
+    }
+  }
+
+  &__left-arrow {
+    left: 0;
+
+    &::before,
+    &::after {
+      transform-origin: left;
+    }
+
+    &::before {
+      transform: translate(-50%, -30%) rotate(-45deg);
+    }
+
+    &::after {
+      transform: translate(-50%, -70%) rotate(45deg);
+    }
+  }
+
+  &--col {
+    display: inline-block;
+    text-align: center;
+    width: calc(100% / 7);
+    font-size: 16px;
+    list-style-type: none;
+    color: $color-black-rat;
+  }
+
+  &--active {
+    color: $color-white;
+    background: $color-blue-bayoux;
+
+    &:hover {
+      background: $color-blue-bayoux;
+    }
+  }
+}
