@@ -1,0 +1,143 @@
+$color-white: rgb(255, 255, 255);
+$color-gray-alto: rgb(214, 214, 214);
+$color-black-rat: rgb(51, 51, 51);
+$color-gray: rgb(133, 133, 133);
+$color-magenta: rgb(221, 61, 142);
+
+.datepicker {
+  position: relative;
+
+  &__input {
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+    font-size: 16px;
+    line-height: 24px;
+    color: #333333;
+  }
+
+  &__input {
+    &:focus ~ .date {
+      visibility: visible;
+      opacity: 1;
+      transition: visibility 0s 0s, opacity 0s 0s;
+    }
+  }
+}
+
+.date {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  visibility: hidden;
+  opacity: 0;
+  font-family: verdana;
+  transition: visibility 0s .4s, opacity .1s .2s;
+  z-index: 10;
+
+  &__container {
+    display: none;
+    width: 212px;
+    background: $color-white;
+    border: solid 1px $color-gray-alto;
+    padding-bottom: 5px;
+    @media (min-width: 768px) {
+      display: block;
+    }
+  }
+
+  &__header {
+    position: relative;
+    font-size: 18px;
+    color: $color-white;
+    text-align: center;
+    background: $color-magenta;
+    padding: 5px;
+  }
+
+  &__day-container {
+    padding: 0;
+    margin: 0;
+  }
+
+  &__day-name {
+    border-bottom: 1px solid $color-gray;
+  }
+
+  &__day {
+    cursor: pointer;
+  }
+
+  &__right-arrow,
+  &__left-arrow {
+    position: absolute;
+    display: inline-block;
+    top: 0;
+    width: 40px;
+    height: 100%;
+    cursor: pointer;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      width: 12px;
+      height: 2px;
+      top: 50%;
+      left: 50%;
+      background: $color-white;
+    }
+  }
+
+  &__right-arrow {
+    right: 0;
+
+    &::before,
+    &::after {
+      transform-origin: right;
+    }
+
+    &::before {
+      transform: translate(-50%, -70%) rotate(-45deg);
+    }
+
+    &::after {
+      transform: translate(-50%, -30%) rotate(45deg);
+    }
+  }
+
+  &__left-arrow {
+    left: 0;
+
+    &::before,
+    &::after {
+      transform-origin: left;
+    }
+
+    &::before {
+      transform: translate(-50%, -30%) rotate(-45deg);
+    }
+
+    &::after {
+      transform: translate(-50%, -70%) rotate(45deg);
+    }
+  }
+
+  &--col {
+    display: inline-block;
+    text-align: center;
+    width: calc(100% / 7);
+    font-size: 16px;
+    list-style-type: none;
+    color: $color-black-rat;
+  }
+
+  &--active {
+    color: $color-white;
+    background: $color-magenta;
+  }
+}
