@@ -7,14 +7,14 @@ function setInputValue (date) {
 }
 
 function renderDatePicker (datePicker, date) {
-  let year = date.getFullYear(),
+  const year = date.getFullYear(),
     month = date.getMonth(),
     day = date.getDate() - 1,
     monthString = getMonthString(date),
     monthDays = getNumberOfDays(year, month),
     firstDayOfWeek= getFirstDayOfWeek(year, month),
-    dateInput = datePicker.querySelector('.datepicker__input'),
-    wrapper,
+    dateInput = datePicker.querySelector('.datepicker__input');
+  let wrapper,
     container,
     header,
     ul,
@@ -53,7 +53,7 @@ function renderDatePicker (datePicker, date) {
 }
 
 function renderLiElementsIntoArray (firstDayOfWeek, monthDays, day) {
-  var dayHeader,
+  let dayHeader,
     emptyDays,
     daysOfMonth;
 
@@ -72,17 +72,15 @@ function renderLiElementsIntoArray (firstDayOfWeek, monthDays, day) {
   });
 
   daysOfMonth = Array.apply(null, { length: monthDays }).map(function (_, i) {
-    return '<li class="date__day date--col' + ((i === day && ' date--active"') || '"') + '>' + Number(i + 1) + '</li>';
+    return `<li class="date__day date--col${((i === day && ' date--active"') || '"')}>${Number(i + 1)}</li>`;
   });
 
-  return dayHeader.concat(emptyDays, daysOfMonth);
+  return [ ...dayHeader, ...emptyDays, ...daysOfMonth ];
 }
 
-function changeDate (str, header, ul) {
-  var date = new Date(str),
-    header = this.header,
-    ul = this.ul,
-    dateInput = this.dateInput,
+function changeDate (dateStr) {
+  const date = new Date(dateStr),
+    { header, ul, dateInput } = this,
     year = date.getFullYear(),
     month = date.getMonth(),
     day = date.getDate() - 1,
@@ -93,15 +91,14 @@ function changeDate (str, header, ul) {
   this.year = year;
   this.month = month;
 
-  header.querySelector('.date__header-title').innerHTML = monthString + ' ' + year;
+  header.querySelector('.date__header-title').innerHTML = `${monthString} ${year}`;
   dateInput.value = setInputValue(date);
   appendArray(ul, renderLiElementsIntoArray(firstDayOfWeek, monthDays, day));
 }
 
 function headerHandler (e) {
-  var target = e.target,
-    year = this.year,
-    month = this.month,
+  let { target } = e,
+    { year, month } = this,
     right,
     date;
 
@@ -114,29 +111,28 @@ function headerHandler (e) {
     else {
       month = month > 0 ? month : (year -= 1, 12);
     }
-    date = year + '/' + month + '/' + (right ? 1 : getNumberOfDays(year, month - 1));
+    date = `${year}/${month}/${right ? 1 : getNumberOfDays(year, month - 1) }`;
 
     changeDate.call(this, date);
   }
 }
 
 function dateDayHandler (e) {
-  var target = e.target,
-    year = this.year,
-    month = this.month,
+  let { target } = e,
+    { year, month } = this,
     dateDay,
     date;
 
   if (target.classList.contains('date__day')) {
     dateDay = Number(target.textContent);
-    date = year + '/' + (month + 1) + '/' + dateDay;
+    date = `${year}/${month + 1}/${dateDay}`
 
     changeDate.call(this, date);
   }
 }
 
 function datePickerInit () {
-  var datePickers = document.querySelectorAll('.datepicker'),
+  let datePickers = document.querySelectorAll('.datepicker'),
     date;
 
   datePickers = Array.prototype.slice.call(datePickers);

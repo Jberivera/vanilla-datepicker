@@ -1,4 +1,4 @@
-function createDomElement (type, props, child) {
+export function createDomElement (type, props, child) {
   var element = document.createElement(type);
 
   Object.keys(props).forEach(function (key) {
@@ -17,7 +17,7 @@ function createDomElement (type, props, child) {
   return element;
 }
 
-function appendArray (wrapper, nodes) {
+export function appendArray (wrapper, nodes) {
   if (typeof nodes[0] === 'string') {
     wrapper.innerHTML = nodes.reduce(function (a, b) {
       return a + b;
@@ -29,8 +29,3 @@ function appendArray (wrapper, nodes) {
     });
   }
 }
-
-module.exports = {
-  createDomElement: createDomElement,
-  appendArray: appendArray
-};
