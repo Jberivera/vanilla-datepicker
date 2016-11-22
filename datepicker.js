@@ -1,19 +1,13 @@
-var dateUtils = require('./js/date-utils'),
-  domUtils = require('./js/dom-utils'),
-  isLeapYear = dateUtils.isLeapYear,
-  getNumberOfDays = dateUtils.getNumberOfDays,
-  getFirstDayOfWeek = dateUtils.getFirstDayOfWeek,
-  getMonthString = dateUtils.getMonthString,
-  createDomElement = domUtils.createDomElement,
-  appendArray = domUtils.appendArray;
+import { isLeapYear, getMonthString, getNumberOfDays, getFirstDayOfWeek } from './js/date-utils';
+import { createDomElement, appendArray } from './js/dom-utils';
 
 function setInputValue (date) {
   var array = /(?:\w{4})-(?:\w{2})-(?:\w{2})/.exec(date.toISOString())[0].split('-');
-  return array[1] + '/' + array[2] + '/' + array[0];
+  return `${array[1]}/${array[2]}/${array[0]}`;
 }
 
 function renderDatePicker (datePicker, date) {
-  var year = date.getFullYear(),
+  let year = date.getFullYear(),
     month = date.getMonth(),
     day = date.getDate() - 1,
     monthString = getMonthString(date),
@@ -34,7 +28,7 @@ function renderDatePicker (datePicker, date) {
     { class: 'date__header' },
     [
       createDomElement('div', { class: 'date__arrow date__left-arrow' }),
-      createDomElement('span', { class: 'date__header-title' }, monthString + ' ' + year),
+      createDomElement('span', { class: 'date__header-title' }, `${monthString} ${year}`),
       createDomElement('div', { class: 'date__arrow date__right-arrow' })
     ]
   );
@@ -47,7 +41,7 @@ function renderDatePicker (datePicker, date) {
   appendArray(container, [header, ul]);
   wrapper.appendChild(container);
 
-  self = { year: year, month: month, header: header, ul: ul, dateInput: dateInput };
+  self = { year, month, header, ul, dateInput };
 
   header.addEventListener('click', headerHandler.bind(self));
   ul.addEventListener('click', dateDayHandler.bind(self));
