@@ -14,13 +14,12 @@ gulp.task('dev', ['clean:build'], function () {
     debug: true
   });
 
-  return b.bundle()
+  return b.transform('babelify', { presets: [ 'es2015' ]})
+    .bundle()
     .pipe(source('datepicker.min.js'))
     .pipe(buffer())
     .pipe(sourcemaps.init({ loadMaps: true }))
-        // Add transformation tasks to the pipeline here.
-        .pipe(uglify())
-        .on('error', gutil.log)
+      .on('error', gutil.log)
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('./build/'));
 });
@@ -32,7 +31,8 @@ gulp.task('build', ['clean:build'], function () {
     debug: true
   });
 
-  return b.bundle()
+  return b.transform('babelify', { presets: [ 'es2015' ]})
+    .bundle()
     .pipe(source('datepicker.min.js'))
     .pipe(buffer())
     .pipe(uglify())
