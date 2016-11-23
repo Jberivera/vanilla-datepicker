@@ -6,8 +6,12 @@ const uglify = require('gulp-uglify');
 const sourcemaps = require('gulp-sourcemaps');
 const gutil = require('gulp-util');
 const del = require('del');
+const postcss = require('gulp-postcss');
+const autoprefixer = require('autoprefixer');
+const scss = require('postcss-scss');
+const nested = require('postcss-nested');
 
-gulp.task('dev', ['clean:build'], function () {
+gulp.task('js-dev', ['clean:build'], function () {
   // set up the browserify instance on a task basis
   const b = browserify({
     entries: './datepicker.js',
@@ -40,9 +44,21 @@ gulp.task('build', ['clean:build'], function () {
     .pipe(gulp.dest('./build/'));
 });
 
+gulp.task('scss', function () {
+  var processors = [
+    nested,
+    autoprefixer({browsers: ['last 1 version']})
+  ];
+  return gulp.src('./scss/datepicker.scss')
+    .pipe(postcss(processors, { syntax: scss }))
+    .pipe(gulp.dest('./build/css'));
+});
+
 gulp.task('clean:build', function () {
   return del([
     'build/**/*',
     '!build/.gitignore'
   ]);
 });
+
+gulp.task('default', ['js-dev', 'scss']);
