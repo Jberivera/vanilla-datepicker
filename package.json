@@ -5,8 +5,9 @@
   "main": "datepicker.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "gulp",
-    "build": "gulp build"
+    "start": "webpack",
+    "build": "webpack",
+    "dev": "npm start"
   },
   "repository": {
     "type": "git",
@@ -23,22 +24,17 @@
   },
   "homepage": "https://github.com/Jberivera/datepicker#readme",
   "devDependencies": {
-    "autoprefixer": "^6.5.3",
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.7",
+    "babel-polyfill": "^6.16.0",
     "babel-preset-es2015": "^6.18.0",
-    "babelify": "^7.3.0",
-    "browserify": "^13.1.1",
-    "cssnano": "^3.8.0",
-    "del": "^2.2.2",
-    "gulp": "^3.9.1",
-    "gulp-postcss": "^6.2.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-sass": "^2.3.2",
-    "gulp-sourcemaps": "^2.2.0",
-    "gulp-uglify": "^2.0.0",
-    "gulp-util": "^3.0.7",
-    "run-sequence": "^1.2.2",
-    "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0",
-    "watchify": "^3.7.0"
+    "babel-preset-stage-0": "^6.16.0",
+    "css-loader": "^0.26.0",
+    "node-sass": "^3.13.0",
+    "postcss-flexbugs-fixes": "^2.0.0",
+    "postcss-loader": "^1.1.1",
+    "sass-loader": "^4.0.2",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.3"
   }
 }
