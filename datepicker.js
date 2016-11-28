@@ -1,3 +1,4 @@
+import './scss/datepicker.scss';
 import { isLeapYear, getMonthString, getNumberOfDays, getFirstDayOfWeek } from './js/date-utils';
 import { createDomElement, appendArray } from './js/dom-utils';
 
