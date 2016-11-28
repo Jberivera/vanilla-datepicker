@@ -6,7 +6,7 @@ function setInputValue (date) {
   return `${array[1]}/${array[2]}/${array[0]}`;
 }
 
-function renderDatePicker (datePicker, date) {
+function renderDatePicker (datePicker, date, callback) {
   const year = date.getFullYear(),
     month = date.getMonth(),
     day = date.getDate() - 1,
@@ -41,7 +41,7 @@ function renderDatePicker (datePicker, date) {
   appendArray(container, [header, ul]);
   wrapper.appendChild(container);
 
-  self = { year, month, header, ul, dateInput };
+  self = { year, month, header, ul, dateInput, callback };
 
   header.addEventListener('click', headerHandler.bind(self));
   ul.addEventListener('click', dateDayHandler.bind(self));
@@ -80,7 +80,7 @@ function renderLiElementsIntoArray (firstDayOfWeek, monthDays, day) {
 
 function changeDate (dateStr) {
   const date = new Date(dateStr),
-    { header, ul, dateInput } = this,
+    { header, ul, dateInput, callback } = this,
     year = date.getFullYear(),
     month = date.getMonth(),
     day = date.getDate() - 1,
@@ -94,6 +94,7 @@ function changeDate (dateStr) {
   header.querySelector('.date__header-title').innerHTML = `${monthString} ${year}`;
   dateInput.value = setInputValue(date);
   appendArray(ul, renderLiElementsIntoArray(firstDayOfWeek, monthDays, day));
+  callback(date, dateInput);
 }
 
 function headerHandler (e) {
@@ -131,7 +132,7 @@ function dateDayHandler (e) {
   }
 }
 
-function datePickerInit () {
+export default function datePickerInit (callback) {
   let datePickers = document.querySelectorAll('.datepicker'),
     date;
 
@@ -139,7 +140,6 @@ function datePickerInit () {
 
   datePickers.forEach(function (datePicker) {
     date = new Date();
-    datePicker.appendChild(renderDatePicker(datePicker, date));
+    datePicker.appendChild(renderDatePicker(datePicker, date, callback));
   });
 }
-datePickerInit();
