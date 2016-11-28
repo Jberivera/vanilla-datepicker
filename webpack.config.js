@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const path = require('path');
 
@@ -32,6 +33,14 @@ const common = {
       }
     ]
   },
+  plugins: [
+    new CleanWebpackPlugin(['build'], {
+      root: __dirname,
+      verbose: false,
+      dry: false,
+      exclude: [ '.gitignore' ]
+    })
+  ],
   postcss: function () {
     return [
       require('postcss-flexbugs-fixes'),
@@ -47,6 +56,7 @@ module.exports = Object.assign(common, {
       filename: 'js/datepicker.min.js'
     }),
     plugins: [
+      ...common.plugins,
       new webpack.optimize.UglifyJsPlugin()
     ]
   }
