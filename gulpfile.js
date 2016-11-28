@@ -1,5 +1,4 @@
 const browserify = require('browserify');
-const watchify = require('watchify');
 const gulp = require('gulp');
 const rename = require('gulp-rename');
 const runSequence = require('run-sequence');
@@ -38,10 +37,10 @@ gulp.task('build:css', function () {
 
 gulp.task('js', function () {
   // set up the browserify instance on a task basis
-  const b = watchify(browserify({
+  const b = browserify({
     entries: './datepicker.js',
     debug: true
-  }));
+  });
 
   return b.transform('babelify', { presets: [ 'es2015' ]})
     .bundle()
