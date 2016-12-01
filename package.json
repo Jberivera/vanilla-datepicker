@@ -17,7 +17,7 @@
     "datepicker",
     "javascript"
   ],
-  "author": "jberivera",
+  "author": "jberivera <jberivera@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Jberivera/datepicker/issues"
@@ -26,6 +26,7 @@
   "devDependencies": {
     "babel-core": "^6.18.2",
     "babel-loader": "^6.2.7",
+    "babel-plugin-add-module-exports": "^0.2.1",
     "babel-polyfill": "^6.16.0",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-stage-0": "^6.16.0",
