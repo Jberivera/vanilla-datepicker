@@ -22,7 +22,7 @@ function renderDatePicker (datePicker, date, callback) {
     self;
 
   dateInput.value = setInputValue(date);
-  wrapper = createDomElement('div', { class: 'date' });
+  wrapper = createDomElement('div', { class: 'date', style: 'display: none' });
   container = createDomElement('div', { class: 'date__container' });
   header = createDomElement(
     'div',
@@ -95,7 +95,7 @@ function changeDate (dateStr) {
   header.querySelector('.date__header-title').innerHTML = `${monthString} ${year}`;
   dateInput.value = setInputValue(date);
   appendArray(ul, renderLiElementsIntoArray(firstDayOfWeek, monthDays, day));
-  callback(date, dateInput);
+  typeof callback === 'function' && callback(date, dateInput);
 }
 
 function headerHandler (e) {
@@ -133,14 +133,22 @@ function dateDayHandler (e) {
   }
 }
 
+function resetStyleTimeout (element) {
+  return function () {
+    element.removeAttribute('style');
+  };
+}
+
 export default function datePickerInit (callback) {
   let datePickers = document.querySelectorAll('.datepicker'),
-    date;
+    wrapper;
 
   datePickers = Array.prototype.slice.call(datePickers);
 
   datePickers.forEach(function (datePicker) {
-    date = new Date();
-    datePicker.appendChild(renderDatePicker(datePicker, date, callback));
+    wrapper = renderDatePicker(datePicker, new Date(), callback);
+
+    datePicker.appendChild(wrapper);
+    setTimeout(resetStyleTimeout(wrapper), 0);
   });
 }

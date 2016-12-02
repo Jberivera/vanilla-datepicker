@@ -6,15 +6,60 @@ Javascript Date Picker.
 
 This module is exported by webpack as a UMD bundle library. `output.libraryTarget: "umd"`
 
+### Install
+
+```bash
+$ npm install vanilla-datepicker --save
+```
+
+### Javascript
+
+```js
+const datepicker = require('vanilla-datepicker');
+
+datepicker();
+```
+
 ### Markup
 
-```html
+It renders the datepicker through each group of following markup
 
+```html
 <div class="datepicker">
   <input type="text" class="datepicker__input" />
 </div>
-
 ```
+
+![datepicker](https://i.imgur.com/DigH7Ls.jpg")
+
+### Callback
+
+Provide a callback to get an update (date) from each field and its reference
+
+```js
+const datepicker = require('vanilla-datepicker');
+
+datepicker(function (date, input) {
+  // Default format MM / DD / YYYY
+  input.value = 'A different date format: ' + date.getDate();
+});
+```
+
+### Color change
+
+Use one level of specificity to modify colors
+
+```css
+.app .date__header {
+  background: darkcyan;
+}
+
+.app .date--active {
+  background: darkcyan;
+}
+```
+
+![datepicker](https://i.imgur.com/pJoAc2p.jpg")
 
 ## Project Tools
 

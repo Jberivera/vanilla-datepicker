@@ -37,8 +37,7 @@ const common = {
     new CleanWebpackPlugin(['dist'], {
       root: __dirname,
       verbose: false,
-      dry: false,
-      exclude: [ '.gitignore' ]
+      dry: false
     })
   ],
   postcss: function () {
