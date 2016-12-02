@@ -53,20 +53,19 @@ function renderDatePicker (datePicker, date, callback) {
   return wrapper;
 }
 
-function renderLiElementsIntoArray (firstDayOfWeek, monthDays, day) {
-  let dayHeader,
-    emptyDays,
-    daysOfMonth;
+const DAY_HEADER = [
+  '<li class="date__day-name date--col">Mo</li>',
+  '<li class="date__day-name date--col">Tu</li>',
+  '<li class="date__day-name date--col">We</li>',
+  '<li class="date__day-name date--col">Th</li>',
+  '<li class="date__day-name date--col">Fr</li>',
+  '<li class="date__day-name date--col">Sa</li>',
+  '<li class="date__day-name date--col">Su</li>'
+];
 
-  dayHeader = [
-    '<li class="date__day-name date--col">Mo</li>',
-    '<li class="date__day-name date--col">Tu</li>',
-    '<li class="date__day-name date--col">We</li>',
-    '<li class="date__day-name date--col">Th</li>',
-    '<li class="date__day-name date--col">Fr</li>',
-    '<li class="date__day-name date--col">Sa</li>',
-    '<li class="date__day-name date--col">Su</li>'
-  ];
+function renderLiElementsIntoArray (firstDayOfWeek, monthDays, day) {
+  let emptyDays,
+    daysOfMonth;
 
   emptyDays = Array.apply(null, { length: firstDayOfWeek - 1 }).map(function (_, i) {
     return '<li class="date--col"></li>';
@@ -76,7 +75,7 @@ function renderLiElementsIntoArray (firstDayOfWeek, monthDays, day) {
     return `<li class="date__day date--col${((i === day && ' date--active"') || '"')}>${Number(i + 1)}</li>`;
   });
 
-  return [ ...dayHeader, ...emptyDays, ...daysOfMonth ];
+  return [ ...DAY_HEADER, ...emptyDays, ...daysOfMonth ];
 }
 
 function changeDate (dateStr) {
