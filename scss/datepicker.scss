@@ -7,12 +7,11 @@ $color-blue-bayoux: #4D6684;
 .datepicker {
   position: relative;
 
-  &__input {
-    &:focus ~ .date {
+  &--show {
+    & .date {
       visibility: visible;
       opacity: 1;
       z-index: 2;
-      transition: visibility 0s 0s, opacity 0s 0s;
     }
   }
 }
@@ -24,7 +23,6 @@ $color-blue-bayoux: #4D6684;
   visibility: hidden;
   opacity: 0;
   font-family: verdana;
-  transition: visibility 0s .4s, opacity .1s .2s;
   z-index: -10;
 
   &__container {

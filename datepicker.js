@@ -46,8 +46,12 @@ function renderDatePicker (datePicker, date, callback) {
 
   header.addEventListener('click', headerHandler.bind(self));
   ul.addEventListener('click', dateDayHandler.bind(self));
-  wrapper.addEventListener('click', function (e) {
-    dateInput.focus();
+  dateInput.addEventListener('click', function (e) {
+    const datepickerShown = document.querySelector('.datepicker--show');
+    datepickerShown && datepickerShown.classList.remove('datepicker--show');
+    setTimeout(() => {
+      dateInput.parentNode.classList.add('datepicker--show');
+    }, 0);
   });
 
   return wrapper;
@@ -143,6 +147,13 @@ export default function datePickerInit (callback) {
     wrapper;
 
   datePickers = Array.prototype.slice.call(datePickers);
+
+  document.addEventListener('click', function (e) {
+    if (!/date__|datepicker__/.test(e.target.className)) {
+      const datepickerShown = document.querySelector('.datepicker--show');
+      datepickerShown && datepickerShown.classList.remove('datepicker--show');
+    }
+  });
 
   datePickers.forEach(function (datePicker) {
     wrapper = renderDatePicker(datePicker, new Date(), callback);
