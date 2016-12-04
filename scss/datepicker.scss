@@ -42,13 +42,13 @@ $color-blue-bayoux: #4D6684;
     padding: 5px;
   }
 
+  &__days-names {
+    border-bottom: 1px solid #858585;
+  }
+
   &__day-container {
     padding: 0;
     margin: 0;
-  }
-
-  &__day-name {
-    border-bottom: 1px solid $color-gray;
   }
 
   &__day {
