@@ -4,7 +4,9 @@ Javascript Date Picker.
 
 ## Getting Started
 
-This module is exported by webpack as a UMD bundle library. `output.libraryTarget: "umd"`
+This module is exported by webpack as a UMD bundle library.
+
+`output.libraryTarget: "umd"`
 
 ### Install
 
@@ -61,13 +63,13 @@ Use one level of specificity to modify colors
 
 ![datepicker](https://i.imgur.com/pJoAc2p.jpg")
 
-## Project Tools
+## Project Dev Tools
 
 - [Webpack](https://webpack.github.io/)
 - [Babel](https://babeljs.io/)
 - [Sass](http://sass-lang.com/)
 
-## Scripts
+## Project Scripts
 
 - `npm start`
 - `npm run build`
