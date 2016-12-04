@@ -1,6 +1,7 @@
 import './scss/datepicker.scss';
 import { isLeapYear, getMonthString, getNumberOfDays, getFirstDayOfWeek } from './js/date-utils';
 import { createDomElement, appendArray } from './js/dom-utils';
+import { inputHandler, blurHandler } from './js/input-behavior-handlers';
 
 function setInputValue (date) {
   var array = /(?:\w{4})-(?:\w{2})-(?:\w{2})/.exec(date.toISOString())[0].split('-');
@@ -46,13 +47,7 @@ function renderDatePicker (datePicker, date, callback) {
 
   header.addEventListener('click', headerHandler.bind(self));
   ul.addEventListener('click', dateDayHandler.bind(self));
-  dateInput.addEventListener('click', function (e) {
-    const datepickerShown = document.querySelector('.datepicker--show');
-    datepickerShown && datepickerShown.classList.remove('datepicker--show');
-    setTimeout(() => {
-      dateInput.parentNode.classList.add('datepicker--show');
-    }, 0);
-  });
+  dateInput.addEventListener('click', inputHandler);
 
   return wrapper;
 }
@@ -147,13 +142,6 @@ export default function datePickerInit (callback) {
     wrapper;
 
   datePickers = Array.prototype.slice.call(datePickers);
-
-  document.addEventListener('click', function (e) {
-    if (!/date__|datepicker__/.test(e.target.className)) {
-      const datepickerShown = document.querySelector('.datepicker--show');
-      datepickerShown && datepickerShown.classList.remove('datepicker--show');
-    }
-  });
 
   datePickers.forEach(function (datePicker) {
     wrapper = renderDatePicker(datePicker, new Date(), callback);
