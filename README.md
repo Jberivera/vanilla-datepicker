@@ -1,6 +1,6 @@
-# Datepicker
+# Vanilla Datepicker
 
-Javascript Date Picker.
+It is a javascript library without dependencies to provide a consistent datepicker experience through different browsers.
 
 ## Getting Started
 

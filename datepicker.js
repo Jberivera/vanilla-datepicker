@@ -19,6 +19,7 @@ function renderDatePicker (datePicker, date, callback) {
   let wrapper,
     container,
     header,
+    daysNames,
     ul,
     self;
 
@@ -34,13 +35,26 @@ function renderDatePicker (datePicker, date, callback) {
       createDomElement('div', { class: 'date__arrow date__right-arrow' })
     ]
   );
+  daysNames = createDomElement('div', { class: 'date__days-names' }, [
+    createDomElement('div', { class: 'date__day-name date--col' }, 'Mo'),
+    createDomElement('div', { class: 'date__day-name date--col' }, 'Tu'),
+    createDomElement('div', { class: 'date__day-name date--col' }, 'We'),
+    createDomElement('div', { class: 'date__day-name date--col' }, 'Th'),
+    createDomElement('div', { class: 'date__day-name date--col' }, 'Fr'),
+    createDomElement('div', { class: 'date__day-name date--col' }, 'Sa'),
+    createDomElement('div', { class: 'date__day-name date--col' }, 'Su'),
+  ]);
   ul = createDomElement(
     'ul',
     { class: 'date__day-container' },
     renderLiElementsIntoArray(firstDayOfWeek, monthDays, day)
   );
 
-  appendArray(container, [header, ul]);
+  appendArray(container, [
+    header,
+    daysNames,
+    ul
+  ]);
   wrapper.appendChild(container);
 
   self = { year, month, header, ul, dateInput, callback };
@@ -51,16 +65,6 @@ function renderDatePicker (datePicker, date, callback) {
 
   return wrapper;
 }
-
-const DAY_HEADER = [
-  '<li class="date__day-name date--col">Mo</li>',
-  '<li class="date__day-name date--col">Tu</li>',
-  '<li class="date__day-name date--col">We</li>',
-  '<li class="date__day-name date--col">Th</li>',
-  '<li class="date__day-name date--col">Fr</li>',
-  '<li class="date__day-name date--col">Sa</li>',
-  '<li class="date__day-name date--col">Su</li>'
-];
 
 function renderLiElementsIntoArray (firstDayOfWeek, monthDays, day) {
   let emptyDays,
@@ -74,7 +78,7 @@ function renderLiElementsIntoArray (firstDayOfWeek, monthDays, day) {
     return `<li class="date__day date--col${((i === day && ' date--active"') || '"')}>${Number(i + 1)}</li>`;
   });
 
-  return [ ...DAY_HEADER, ...emptyDays, ...daysOfMonth ];
+  return [...emptyDays, ...daysOfMonth];
 }
 
 function changeDate (dateStr) {
@@ -132,9 +136,7 @@ function dateDayHandler (e) {
 }
 
 function resetStyleTimeout (element) {
-  return function () {
-    element.removeAttribute('style');
-  };
+  setTimeout(() => element.removeAttribute('style'), 0);
 }
 
 export default function datePickerInit (callback) {
@@ -147,6 +149,6 @@ export default function datePickerInit (callback) {
     wrapper = renderDatePicker(datePicker, new Date(), callback);
 
     datePicker.appendChild(wrapper);
-    setTimeout(resetStyleTimeout(wrapper), 0);
+    resetStyleTimeout(wrapper);
   });
 }
