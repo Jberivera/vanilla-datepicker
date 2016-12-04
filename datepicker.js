@@ -1,7 +1,7 @@
 import './scss/datepicker.scss';
 import { isLeapYear, getMonthString, getNumberOfDays, getFirstDayOfWeek } from './js/date-utils';
 import { createDomElement, appendArray } from './js/dom-utils';
-import { inputHandler, blurHandler } from './js/input-behavior-handlers';
+import { inputHandler } from './js/input-behavior-handlers';
 
 function setInputValue (date) {
   var array = /(?:\w{4})-(?:\w{2})-(?:\w{2})/.exec(date.toISOString())[0].split('-');
