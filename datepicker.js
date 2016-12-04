@@ -132,9 +132,7 @@ function dateDayHandler (e) {
 }
 
 function resetStyleTimeout (element) {
-  return function () {
-    element.removeAttribute('style');
-  };
+  setTimeout(() => element.removeAttribute('style'), 0);
 }
 
 export default function datePickerInit (callback) {
@@ -147,6 +145,6 @@ export default function datePickerInit (callback) {
     wrapper = renderDatePicker(datePicker, new Date(), callback);
 
     datePicker.appendChild(wrapper);
-    setTimeout(resetStyleTimeout(wrapper), 0);
+    resetStyleTimeout(wrapper);
   });
 }
