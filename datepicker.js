@@ -64,7 +64,7 @@ function renderDatePicker (datePicker, date, callback) {
 
   header.addEventListener('click', headerHandler.bind(self));
   ul.addEventListener('click', dateDayHandler.bind(self));
-  dateInput.addEventListener('click', inputHandler);
+  dateInput.addEventListener('focus', inputHandler);
 
   return wrapper;
 }
