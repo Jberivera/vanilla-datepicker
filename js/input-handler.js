@@ -1,4 +1,4 @@
-export function inputHandler (e) {
+export default function inputHandler (e) {
   const datepickerShown = document.querySelector('.datepicker--show');
 
   if (datepickerShown) {
@@ -11,7 +11,7 @@ export function inputHandler (e) {
   }, 0);
 }
 
-export function blurHandler (e) {
+function blurHandler (e) {
   if (!/date__|datepicker__/.test(e.target.className)) {
     const datepickerShown = document.querySelector('.datepicker--show');
     datepickerShown && datepickerShown.classList.remove('datepicker--show');
