@@ -1,7 +1,7 @@
 import './scss/datepicker.scss';
 import { isLeapYear, getMonthString, getNumberOfDays, getFirstDayOfWeek } from './js/date-utils';
 import { createDomElement, appendArray } from './js/dom-utils';
-import { inputHandler } from './js/input-behavior-handlers';
+import inputHandler from './js/input-handler';
 
 function setInputValue (date) {
   var array = /(?:\w{4})-(?:\w{2})-(?:\w{2})/.exec(date.toISOString())[0].split('-');
@@ -31,18 +31,21 @@ function renderDatePicker (datePicker, date, callback) {
     { class: 'date__header' },
     [
       createDomElement('div', { class: 'date__arrow date__left-arrow' }),
-      createDomElement('span', { class: 'date__header-title' }, `${monthString} ${year}`),
+      createDomElement('span', { class: 'date__header-title' }, [
+        createDomElement('span', { class: 'date__header-month'}, monthString),
+        createDomElement('span', { class: 'date__header-year'}, year)
+      ]),
       createDomElement('div', { class: 'date__arrow date__right-arrow' })
     ]
   );
   daysNames = createDomElement('div', { class: 'date__days-names' }, [
-    createDomElement('div', { class: 'date__day-name date--col' }, 'Mo'),
-    createDomElement('div', { class: 'date__day-name date--col' }, 'Tu'),
-    createDomElement('div', { class: 'date__day-name date--col' }, 'We'),
-    createDomElement('div', { class: 'date__day-name date--col' }, 'Th'),
-    createDomElement('div', { class: 'date__day-name date--col' }, 'Fr'),
-    createDomElement('div', { class: 'date__day-name date--col' }, 'Sa'),
-    createDomElement('div', { class: 'date__day-name date--col' }, 'Su'),
+    '<div class="date__day-name date--col">Su</div>',
+    '<div class="date__day-name date--col">Mo</div>',
+    '<div class="date__day-name date--col">Tu</div>',
+    '<div class="date__day-name date--col">We</div>',
+    '<div class="date__day-name date--col">Th</div>',
+    '<div class="date__day-name date--col">Fr</div>',
+    '<div class="date__day-name date--col">Sa</div>'
   ]);
   ul = createDomElement(
     'ul',
@@ -70,15 +73,13 @@ function renderLiElementsIntoArray (firstDayOfWeek, monthDays, day) {
   let emptyDays,
     daysOfMonth;
 
-  emptyDays = Array.apply(null, { length: firstDayOfWeek - 1 }).map(function (_, i) {
-    return '<li class="date--col"></li>';
-  });
+  emptyDays = Array(firstDayOfWeek + 1).join('<li class="date--col"></li>');
 
   daysOfMonth = Array.apply(null, { length: monthDays }).map(function (_, i) {
     return `<li class="date__day date--col${((i === day && ' date--active"') || '"')}>${Number(i + 1)}</li>`;
   });
 
-  return [...emptyDays, ...daysOfMonth];
+  return [emptyDays, ...daysOfMonth];
 }
 
 function changeDate (dateStr) {
@@ -91,10 +92,16 @@ function changeDate (dateStr) {
     firstDayOfWeek= getFirstDayOfWeek(year, month),
     monthDays = getNumberOfDays(year, month);
 
-  this.year = year;
-  this.month = month;
+  if (this.year !== year) {
+    this.year = year;
+    header.querySelector('.date__header-year').innerHTML = year;
+  }
 
-  header.querySelector('.date__header-title').innerHTML = `${monthString} ${year}`;
+  if (this.month !== month) {
+    this.month = month;
+    header.querySelector('.date__header-month').innerHTML = monthString;
+  }
+
   dateInput.value = setInputValue(date);
   appendArray(ul, renderLiElementsIntoArray(firstDayOfWeek, monthDays, day));
   typeof callback === 'function' && callback(date, dateInput);
@@ -111,8 +118,7 @@ function headerHandler (e) {
 
     if (right) {
       month = month < 11 ? month + 2 : (year += 1, 1);
-    }
-    else {
+    } else {
       month = month > 0 ? month : (year -= 1, 12);
     }
     date = `${year}/${month}/${right ? 1 : getNumberOfDays(year, month - 1) }`;

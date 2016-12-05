@@ -35,7 +35,7 @@ It renders the datepicker through each group of following markup
 </div>
 ```
 
-![datepicker](https://i.imgur.com/DigH7Ls.jpg")
+![datepicker](https://i.imgur.com/UgCmG5O.jpg)
 
 ### Callback
 
@@ -64,7 +64,7 @@ Use one level of specificity to modify colors
 }
 ```
 
-![datepicker](https://i.imgur.com/pJoAc2p.jpg")
+![datepicker](https://i.imgur.com/D6RieHO.jpg)
 
 ## Project Dev Tools
 

@@ -6,6 +6,7 @@ export function createDomElement (type, props, child) {
   });
 
   switch (typeof child) {
+    case 'number':
     case 'string':
       element.innerHTML = child;
       break;
@@ -19,11 +20,8 @@ export function createDomElement (type, props, child) {
 
 export function appendArray (wrapper, nodes) {
   if (typeof nodes[0] === 'string') {
-    wrapper.innerHTML = nodes.reduce(function (a, b) {
-      return a + b;
-    });
-  }
-  else {
+    wrapper.innerHTML = nodes.join('');
+  } else {
     nodes.forEach(function (node) {
       wrapper.appendChild(node);
     });
