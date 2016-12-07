@@ -13,7 +13,3 @@ export function getNumberOfDays (year, month) {
 export function getFirstDayOfWeek (year, month) {
   return (new Date(`${year}/${month + 1}/01`)).getDay();
 }
-
-export function getMonthString (date) {
-  return /\s(?:\w+)\s/.exec(date.toDateString())[0].trim();
-}

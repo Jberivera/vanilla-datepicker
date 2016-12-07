@@ -1,7 +1,7 @@
 $color-white: #fff;
 $color-gray-alto: #d6d6d6;
 $color-black-rat: #333;
-$color-gray: #858585;
+$color-gallery: #f0f0f0;
 $color-blue-bayoux: #4D6684;
 
 .datepicker {
@@ -42,8 +42,27 @@ $color-blue-bayoux: #4D6684;
     padding: 5px;
   }
 
+  &__header-month,
+  &__header-year {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    outline: 0;
+    cursor: pointer;
+    color: $color-white;
+    background: inherit;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+
   &__header-month {
-    margin-right: 10px;
+    font-size: 15px;
+    margin-right: 3px;
+  }
+
+  &__header-year {
+    font-size: 15px;
   }
 
   &__days-names {
@@ -57,6 +76,10 @@ $color-blue-bayoux: #4D6684;
 
   &__day {
     cursor: pointer;
+
+    &:hover {
+      background: $color-gallery
+    }
   }
 
   &__right-arrow,
@@ -126,5 +149,9 @@ $color-blue-bayoux: #4D6684;
   &--active {
     color: $color-white;
     background: $color-blue-bayoux;
+
+    &:hover {
+      background: $color-blue-bayoux;
+    }
   }
 }

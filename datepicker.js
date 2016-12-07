@@ -1,7 +1,14 @@
 import './scss/datepicker.scss';
-import { isLeapYear, getMonthString, getNumberOfDays, getFirstDayOfWeek } from './js/date-utils';
+import { isLeapYear, getNumberOfDays, getFirstDayOfWeek } from './js/date-utils';
 import { createDomElement, appendArray } from './js/dom-utils';
 import inputHandler from './js/input-handler';
+import { DAYS_NAMES, MONTH_OPTIONS } from './js/arrays-dom';
+
+const toArray = Function.prototype.call.bind(Array.prototype.slice);
+const YEAR_CONFIG = {
+  start: 1900,
+  end: 2100
+};
 
 function setInputValue (date) {
   var array = /(?:\w{4})-(?:\w{2})-(?:\w{2})/.exec(date.toISOString())[0].split('-');
@@ -9,16 +16,17 @@ function setInputValue (date) {
 }
 
 function renderDatePicker (datePicker, date, callback) {
-  const year = date.getFullYear(),
+  let year = date.getFullYear(),
     month = date.getMonth(),
-    day = date.getDate() - 1,
-    monthString = getMonthString(date),
+    day = date.getDate(),
     monthDays = getNumberOfDays(year, month),
     firstDayOfWeek= getFirstDayOfWeek(year, month),
-    dateInput = datePicker.querySelector('.datepicker__input');
-  let wrapper,
+    dateInput = datePicker.querySelector('.datepicker__input'),
+    wrapper,
     container,
     header,
+    monthPicker,
+    yearPicker,
     daysNames,
     ul,
     self;
@@ -26,32 +34,29 @@ function renderDatePicker (datePicker, date, callback) {
   dateInput.value = setInputValue(date);
   wrapper = createDomElement('div', { class: 'date', style: 'display: none' });
   container = createDomElement('div', { class: 'date__container' });
+  monthPicker = createDomElement('select', { class: 'date__header-month'}, MONTH_OPTIONS);
+  yearPicker = createDomElement('select', { class: 'date__header-year'}, renderYearOptions(YEAR_CONFIG));
   header = createDomElement(
     'div',
     { class: 'date__header' },
     [
       createDomElement('div', { class: 'date__arrow date__left-arrow' }),
       createDomElement('span', { class: 'date__header-title' }, [
-        createDomElement('span', { class: 'date__header-month'}, monthString),
-        createDomElement('span', { class: 'date__header-year'}, year)
+        monthPicker,
+        yearPicker
       ]),
       createDomElement('div', { class: 'date__arrow date__right-arrow' })
     ]
   );
-  daysNames = createDomElement('div', { class: 'date__days-names' }, [
-    '<div class="date__day-name date--col">Su</div>',
-    '<div class="date__day-name date--col">Mo</div>',
-    '<div class="date__day-name date--col">Tu</div>',
-    '<div class="date__day-name date--col">We</div>',
-    '<div class="date__day-name date--col">Th</div>',
-    '<div class="date__day-name date--col">Fr</div>',
-    '<div class="date__day-name date--col">Sa</div>'
-  ]);
+  daysNames = createDomElement('div', { class: 'date__days-names' }, DAYS_NAMES);
   ul = createDomElement(
     'ul',
     { class: 'date__day-container' },
     renderLiElementsIntoArray(firstDayOfWeek, monthDays, day)
   );
+
+  monthPicker.selectedIndex = month;
+  yearPicker.selectedIndex = year - YEAR_CONFIG.start;
 
   appendArray(container, [
     header,
@@ -60,11 +65,13 @@ function renderDatePicker (datePicker, date, callback) {
   ]);
   wrapper.appendChild(container);
 
-  self = { year, month, header, ul, dateInput, callback };
+  self = { year, month, day, header, ul, dateInput, callback };
 
   header.addEventListener('click', headerHandler.bind(self));
   ul.addEventListener('click', dateDayHandler.bind(self));
   dateInput.addEventListener('focus', inputHandler);
+  monthPicker.addEventListener('change', selectionChange.bind(self));
+  yearPicker.addEventListener('change', selectionChange.bind(self));
 
   return wrapper;
 }
@@ -72,14 +79,22 @@ function renderDatePicker (datePicker, date, callback) {
 function renderLiElementsIntoArray (firstDayOfWeek, monthDays, day) {
   let emptyDays,
     daysOfMonth;
+  day -= 1;
 
   emptyDays = Array(firstDayOfWeek + 1).join('<li class="date--col"></li>');
 
   daysOfMonth = Array.apply(null, { length: monthDays }).map(function (_, i) {
-    return `<li class="date__day date--col${((i === day && ' date--active"') || '"')}>${Number(i + 1)}</li>`;
+    return `<li class="date__day date--col${i === day ? ' date--active"' : '"'}>${Number(i + 1)}</li>`;
   });
 
   return [emptyDays, ...daysOfMonth];
+}
+
+function renderYearOptions ({start, end}) {
+  return Array.apply(null, { length: end - start + 1 }).map(function (_, i) {
+    const year = i * 1 + start;
+    return `<option value="${year}">${year}</option>`;
+  });
 }
 
 function changeDate (dateStr) {
@@ -87,24 +102,42 @@ function changeDate (dateStr) {
     { header, ul, dateInput, callback } = this,
     year = date.getFullYear(),
     month = date.getMonth(),
-    day = date.getDate() - 1,
-    monthString = getMonthString(date),
+    day = date.getDate(),
     firstDayOfWeek= getFirstDayOfWeek(year, month),
     monthDays = getNumberOfDays(year, month);
 
+  this.day = day;
+
   if (this.year !== year) {
     this.year = year;
-    header.querySelector('.date__header-year').innerHTML = year;
+    header.querySelector('.date__header-year').selectedIndex = year - YEAR_CONFIG.start;
   }
 
   if (this.month !== month) {
     this.month = month;
-    header.querySelector('.date__header-month').innerHTML = monthString;
+    header.querySelector('.date__header-month').selectedIndex = month;
   }
 
   dateInput.value = setInputValue(date);
   appendArray(ul, renderLiElementsIntoArray(firstDayOfWeek, monthDays, day));
   typeof callback === 'function' && callback(date, dateInput);
+}
+
+function selectionChange (e) {
+  let { value } = e.target,
+    { year, month, day } = this,
+    monthDays,
+    date;
+
+  if (value < YEAR_CONFIG.start) {
+    monthDays = getNumberOfDays(year, value);
+    date = `${year}/${Number(value) + 1}/${day > monthDays ? monthDays : day}`;
+  } else {
+    monthDays = getNumberOfDays(value, month);
+    date = `${value}/${Number(month) + 1}/${day > monthDays ? monthDays : day}`;
+  }
+
+  changeDate.call(this, date);
 }
 
 function headerHandler (e) {
@@ -149,7 +182,7 @@ export default function datePickerInit (callback) {
   let datePickers = document.querySelectorAll('.datepicker'),
     wrapper;
 
-  datePickers = Array.prototype.slice.call(datePickers);
+  datePickers = toArray(datePickers);
 
   datePickers.forEach(function (datePicker) {
     wrapper = renderDatePicker(datePicker, new Date(), callback);
