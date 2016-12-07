@@ -2,7 +2,7 @@ import './scss/datepicker.scss';
 import { isLeapYear, getNumberOfDays, getFirstDayOfWeek } from './js/date-utils';
 import { createDomElement, appendArray } from './js/dom-utils';
 import inputHandler from './js/input-handler';
-import { DAYS_NAMES, MONTH_OPTIONS } from './js/arrays-dom';
+import { DAYS_NAMES, MONTH_STRING_EN, renderYearOptions, renderMonthOptions } from './js/arrays-dom';
 
 const toArray = Function.prototype.call.bind(Array.prototype.slice);
 const YEAR_CONFIG = {
@@ -34,7 +34,7 @@ function renderDatePicker (datePicker, date, callback) {
   dateInput.value = setInputValue(date);
   wrapper = createDomElement('div', { class: 'date', style: 'display: none' });
   container = createDomElement('div', { class: 'date__container' });
-  monthPicker = createDomElement('select', { class: 'date__header-month', tabindex: '-1' }, MONTH_OPTIONS);
+  monthPicker = createDomElement('select', { class: 'date__header-month', tabindex: '-1' }, renderMonthOptions(MONTH_STRING_EN));
   yearPicker = createDomElement('select', { class: 'date__header-year', tabindex: '-1' }, renderYearOptions(YEAR_CONFIG));
   header = createDomElement(
     'div',
@@ -88,13 +88,6 @@ function renderLiElementsIntoArray (firstDayOfWeek, monthDays, day) {
   });
 
   return [emptyDays, ...daysOfMonth];
-}
-
-function renderYearOptions ({start, end}) {
-  return Array.apply(null, { length: end - start + 1 }).map(function (_, i) {
-    const year = i * 1 + start;
-    return `<option value="${year}">${year}</option>`;
-  });
 }
 
 function changeDate (dateStr) {

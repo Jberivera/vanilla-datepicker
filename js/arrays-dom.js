@@ -8,17 +8,30 @@ export const DAYS_NAMES = [
   '<div class="date__day-name date--col">Sa</div>'
 ];
 
-export const MONTH_OPTIONS = [
-  '<option value="0">January</option>',
-  '<option value="1">February</option>',
-  '<option value="2">March</option>',
-  '<option value="3">April</option>',
-  '<option value="4">May</option>',
-  '<option value="5">June</option>',
-  '<option value="6">July</option>',
-  '<option value="7">August</option>',
-  '<option value="8">September</option>',
-  '<option value="9">October</option>',
-  '<option value="10">November</option>',
-  '<option value="11">December</option>'
+export const MONTH_STRING_EN = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec'
 ];
+
+export function renderMonthOptions (monthString) {
+  return monthString.map(function (month, i) {
+    return `<option value="${i}">${month}</option>`;
+  });
+}
+
+export function renderYearOptions ({start, end}) {
+  return Array.apply(null, { length: end - start + 1 }).map(function (_, i) {
+    const year = i * 1 + start;
+    return `<option value="${year}">${year}</option>`;
+  });
+}
