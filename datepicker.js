@@ -34,8 +34,8 @@ function renderDatePicker (datePicker, date, callback) {
   dateInput.value = setInputValue(date);
   wrapper = createDomElement('div', { class: 'date', style: 'display: none' });
   container = createDomElement('div', { class: 'date__container' });
-  monthPicker = createDomElement('select', { class: 'date__header-month'}, MONTH_OPTIONS);
-  yearPicker = createDomElement('select', { class: 'date__header-year'}, renderYearOptions(YEAR_CONFIG));
+  monthPicker = createDomElement('select', { class: 'date__header-month', tabindex: '-1' }, MONTH_OPTIONS);
+  yearPicker = createDomElement('select', { class: 'date__header-year', tabindex: '-1' }, renderYearOptions(YEAR_CONFIG));
   header = createDomElement(
     'div',
     { class: 'date__header' },
