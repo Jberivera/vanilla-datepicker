@@ -5,7 +5,7 @@ import inputHandler from './js/input-handler';
 import { DAYS_NAMES, MONTH_STRING_EN, renderYearOptions, renderMonthOptions } from './js/arrays-dom';
 
 const toArray = Function.prototype.call.bind(Array.prototype.slice);
-const YEAR_CONFIG = {
+let YEAR_CONFIG = {
   start: 1900,
   end: 2100
 };
@@ -15,7 +15,7 @@ function setInputValue (date) {
   return `${array[1]}/${array[2]}/${array[0]}`;
 }
 
-function renderDatePicker (datePicker, date, callback) {
+function renderDatePicker ({ datePicker, date, callback, config }) {
   let year = date.getFullYear(),
     month = date.getMonth(),
     day = date.getDate(),
@@ -34,7 +34,7 @@ function renderDatePicker (datePicker, date, callback) {
   dateInput.value = setInputValue(date);
   wrapper = createDomElement('div', { class: 'date', style: 'display: none' });
   container = createDomElement('div', { class: 'date__container' });
-  monthPicker = createDomElement('select', { class: 'date__header-month', tabindex: '-1' }, renderMonthOptions(MONTH_STRING_EN));
+  monthPicker = createDomElement('select', { class: 'date__header-month', tabindex: '-1' }, renderMonthOptions(config.monthString || MONTH_STRING_EN));
   yearPicker = createDomElement('select', { class: 'date__header-year', tabindex: '-1' }, renderYearOptions(YEAR_CONFIG));
   header = createDomElement(
     'div',
@@ -171,14 +171,21 @@ function resetStyleTimeout (element) {
   setTimeout(() => element.removeAttribute('style'), 0);
 }
 
-export default function datePickerInit (callback) {
+export default function datePickerInit (config = {}, callback) {
   let datePickers = document.querySelectorAll('.datepicker'),
     wrapper;
 
+  if (typeof config === 'function') {
+    callback = config;
+    config = {};
+  }
+
   datePickers = toArray(datePickers);
+  YEAR_CONFIG = config.yearConfig || YEAR_CONFIG;
 
   datePickers.forEach(function (datePicker) {
-    wrapper = renderDatePicker(datePicker, new Date(), callback);
+    const date = new Date();
+    wrapper = renderDatePicker({ datePicker, date, callback, config });
 
     datePicker.appendChild(wrapper);
     resetStyleTimeout(wrapper);
