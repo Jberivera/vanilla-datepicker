@@ -70,13 +70,15 @@ Use one level of specificity to modify colors
 
 ## Config Object
 
+Not required. But useful if you want to change the language of months or if you require a different range of selection for year in the calendar header.
+
 ```js
 var config = {
   yearConfig: {
     start: 2000, // Default 1900
     end: 2018    // Default 2100
   },
-  // To specify a different monthString. Default: English
+  // Specify a different monthString value. Default: English
   monthString: [
     'Ene',
     'Feb',
