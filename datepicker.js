@@ -171,7 +171,7 @@ function resetStyleTimeout (element) {
   setTimeout(() => element.removeAttribute('style'), 0);
 }
 
-export default function datePickerInit (config, callback) {
+export default function datePickerInit (config = {}, callback) {
   let datePickers = document.querySelectorAll('.datepicker'),
     wrapper;
 
