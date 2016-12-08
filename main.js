@@ -1,1 +1,1 @@
-datepicker();
+datepicker({});
