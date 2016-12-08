@@ -68,6 +68,37 @@ Use one level of specificity to modify colors
 
 ![datepicker](https://i.imgur.com/D6RieHO.jpg)
 
+## Config Object
+
+```js
+var config = {
+  yearConfig: {
+    start: 2000, // Default 1900
+    end: 2018    // Default 2100
+  },
+  // To specify a different monthString. Default: English
+  monthString: [
+    'Ene',
+    'Feb',
+    'Mar',
+    'Abr',
+    'May',
+    'Jun',
+    'Jul',
+    'Ago',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dic'
+  ]
+};
+
+datepicker(config, function (date, input) {
+  // Default format MM / DD / YYYY
+  input.value = 'A different date format: ' + date.getDate();
+});
+```
+
 ## Project Dev Tools
 
 - [Webpack](https://webpack.github.io/)
