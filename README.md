@@ -2,6 +2,8 @@
 
 It is a javascript library without dependencies to provide a consistent datepicker experience through different browsers.
 
+[Try it out, demo!](https://jberivera.github.io/vanilla-datepicker/)
+
 [![npm version](https://img.shields.io/npm/v/vanilla-datepicker.svg?style=flat-square)](https://www.npmjs.com/package/vanilla-datepicker)
 [![npm downloads](https://img.shields.io/npm/dm/vanilla-datepicker.svg?style=flat-square)](https://www.npmjs.com/package/vanilla-datepicker)
 
