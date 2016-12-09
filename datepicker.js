@@ -184,7 +184,7 @@ export default function datePickerInit (config = {}, callback) {
   YEAR_CONFIG = config.yearConfig || YEAR_CONFIG;
 
   datePickers.forEach(function (datePicker) {
-    const date = new Date();
+    const date = config.date || new Date();
     wrapper = renderDatePicker({ datePicker, date, callback, config });
 
     datePicker.appendChild(wrapper);
