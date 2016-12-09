@@ -1,6 +1,6 @@
 {
   "name": "vanilla-datepicker",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "Javascript DatePicker",
   "main": "dist/datepicker.js",
   "scripts": {
