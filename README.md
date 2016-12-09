@@ -4,6 +4,7 @@ It is a javascript library without dependencies to provide a consistent datepick
 
 [Try it out, demo!](https://jberivera.github.io/vanilla-datepicker/)
 
+[![Build Status](https://travis-ci.org/Jberivera/vanilla-datepicker.svg?branch=master)](https://travis-ci.org/Jberivera/vanilla-datepicker)
 [![npm version](https://img.shields.io/npm/v/vanilla-datepicker.svg?style=flat-square)](https://www.npmjs.com/package/vanilla-datepicker)
 [![npm downloads](https://img.shields.io/npm/dm/vanilla-datepicker.svg?style=flat-square)](https://www.npmjs.com/package/vanilla-datepicker)
 
@@ -106,6 +107,8 @@ datepicker(config, function (date, input) {
 - [Webpack](https://webpack.github.io/)
 - [Babel](https://babeljs.io/)
 - [Sass](http://sass-lang.com/)
+- [Mocha](https://mochajs.org/) + [Expect](https://github.com/mjackson/expect)
+- [Karma](https://karma-runner.github.io/) + [Phantomjs](http://phantomjs.org/)
 
 ## Project Scripts
 
