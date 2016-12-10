@@ -5,6 +5,10 @@ module.exports = function(config) {
   config.set({
     frameworks: ['mocha'],
     files: [
+      'test/execution.spec.js',
+      'test/datepicker-render.spec.js',
+      'test/rightArrow.spec.js',
+      'test/leftArrow.spec.js',
       'test/**/*.spec.js'
     ],
     plugins: [karmaWebpack, 'karma-mocha', 'karma-phantomjs-launcher', 'karma-coverage', 'karma-spec-reporter'],

@@ -1,7 +1,7 @@
 import expect from 'expect';
 import datepicker from '../datepicker';
 
-describe('renders without error', function () {
+describe('executes without error', function () {
   it('receives no arguments', function () {
     try {
       datepicker();
@@ -9,6 +9,7 @@ describe('renders without error', function () {
       throw 'Not working properly';
     }
   });
+
   it('receives callback function', function () {
     try {
       datepicker(function () {});
@@ -16,6 +17,7 @@ describe('renders without error', function () {
       throw 'Not working properly';
     }
   });
+
   it('receives config object', function () {
     try {
       datepicker({});
