@@ -1,6 +1,6 @@
 import expect from 'expect';
 import datepicker from '../datepicker';
-import { createDomElement, appendArray } from '../js/dom-utils';
+import { createDomElement } from '../js/dom-utils';
 
 const TEST_DATE = new Date('01/01/2016');
 let $datepicker;

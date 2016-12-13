@@ -30,6 +30,11 @@ const common = {
         test: /\.js$/,
         loaders: ['babel?cacheDirectory'],
         include: [ PATHS.main, PATHS.js ]
+      },
+      {
+        test: /\.js$/,
+        loader: 'eslint-loader',
+        exclude: /node_modules/
       }
     ]
   },

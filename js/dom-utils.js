@@ -6,13 +6,13 @@ export function createDomElement (type, props, child) {
   });
 
   switch (typeof child) {
-    case 'number':
-    case 'string':
-      element.innerHTML = child;
-      break;
-    case 'object':
-      appendArray(element, child);
-      break;
+  case 'number':
+  case 'string':
+    element.innerHTML = child;
+    break;
+  case 'object':
+    appendArray(element, child);
+    break;
   }
 
   return element;
