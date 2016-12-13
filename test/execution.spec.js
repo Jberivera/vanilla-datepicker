@@ -1,4 +1,3 @@
-import expect from 'expect';
 import datepicker from '../datepicker';
 
 describe('executes without error', function () {
