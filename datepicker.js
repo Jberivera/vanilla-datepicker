@@ -1,5 +1,5 @@
 import './scss/datepicker.scss';
-import { isLeapYear, getNumberOfDays, getFirstDayOfWeek } from './js/date-utils';
+import { getNumberOfDays, getFirstDayOfWeek } from './js/date-utils';
 import { createDomElement, appendArray } from './js/dom-utils';
 import inputHandler from './js/input-handler';
 import { DAYS_NAMES, MONTH_STRING_EN, renderYearOptions, renderMonthOptions } from './js/arrays-dom';
@@ -161,7 +161,7 @@ function dateDayHandler (e) {
 
   if (target.classList.contains('date__day')) {
     dateDay = Number(target.textContent);
-    date = `${year}/${month + 1}/${dateDay}`
+    date = `${year}/${month + 1}/${dateDay}`;
 
     changeDate.call(this, date);
   }

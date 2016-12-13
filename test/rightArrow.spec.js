@@ -117,4 +117,4 @@ function fireClick(element) {
   const event = document.createEvent('MouseEvents');
   event.initEvent('click', true, true);
   element.dispatchEvent(event);
-};
+}
