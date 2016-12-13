@@ -20,23 +20,7 @@ const common = {
     libraryTarget: 'umd'
   },
   module: {
-    loaders: [
-      {
-        test: /\.scss$/,
-        loader: 'style!css?sourceMap!postcss!sass?sourceMap',
-        include: PATHS.scss
-      },
-      {
-        test: /\.js$/,
-        loaders: ['babel?cacheDirectory'],
-        include: [ PATHS.main, PATHS.js ]
-      },
-      {
-        test: /\.js$/,
-        loader: 'eslint-loader',
-        exclude: /node_modules/
-      }
-    ]
+    loaders: loaders
   },
   plugins: [
     new CleanWebpackPlugin(['dist'], {
@@ -53,12 +37,41 @@ const common = {
   }
 };
 
+const loaders = [
+  {
+    test: /\.scss$/,
+    loader: 'style!css?sourceMap!postcss!sass?sourceMap',
+    include: PATHS.scss
+  },
+  {
+    test: /\.js$/,
+    loaders: ['babel?cacheDirectory'],
+    include: [ PATHS.main, PATHS.js ]
+  },
+  {
+    test: /\.js$/,
+    loader: 'eslint-loader',
+    exclude: /node_modules/
+  }
+];
+
 module.exports = Object.assign(common, {
   start: {},
   build: {
+    module: Object.assign({}, common.module, {
+      loaders: [
+        {
+          test: /\.scss$/,
+          loader: 'style!css!postcss!sass',
+          include: PATHS.scss
+        },
+        ...loaders.slice(1, loaders.length)
+      ]
+    }),
     plugins: [
       ...common.plugins,
-      new webpack.optimize.UglifyJsPlugin()
+      new webpack.optimize.UglifyJsPlugin(),
+      new webpack.optimize.OccurrenceOrderPlugin()
     ]
   }
 }[TARGET]);
