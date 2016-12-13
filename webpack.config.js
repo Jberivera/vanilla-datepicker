@@ -11,6 +11,24 @@ const PATHS = {
   js: path.join(__dirname, 'js')
 };
 
+const loaders = [
+  {
+    test: /\.scss$/,
+    loader: 'style!css?sourceMap!postcss!sass?sourceMap',
+    include: PATHS.scss
+  },
+  {
+    test: /\.js$/,
+    loaders: ['babel?cacheDirectory'],
+    include: [ PATHS.main, PATHS.js ]
+  },
+  {
+    test: /\.js$/,
+    loader: 'eslint-loader',
+    exclude: /node_modules/
+  }
+];
+
 const common = {
   entry: PATHS.main,
   output: {
@@ -37,24 +55,6 @@ const common = {
   }
 };
 
-const loaders = [
-  {
-    test: /\.scss$/,
-    loader: 'style!css?sourceMap!postcss!sass?sourceMap',
-    include: PATHS.scss
-  },
-  {
-    test: /\.js$/,
-    loaders: ['babel?cacheDirectory'],
-    include: [ PATHS.main, PATHS.js ]
-  },
-  {
-    test: /\.js$/,
-    loader: 'eslint-loader',
-    exclude: /node_modules/
-  }
-];
-
 module.exports = Object.assign(common, {
   start: {},
   build: {
@@ -70,8 +70,7 @@ module.exports = Object.assign(common, {
     }),
     plugins: [
       ...common.plugins,
-      new webpack.optimize.UglifyJsPlugin(),
-      new webpack.optimize.OccurrenceOrderPlugin()
+      new webpack.optimize.UglifyJsPlugin()
     ]
   }
 }[TARGET]);
