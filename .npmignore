@@ -1,7 +1,12 @@
 /js
 /scss
+/test
+/reports
 datepicker.js
 webpack.config.js
 .babelrc
+.eslintrc.json
+.travis.yml
+karma.config.js
 
 !dist
