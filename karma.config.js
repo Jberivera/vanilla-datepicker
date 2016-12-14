@@ -43,7 +43,7 @@ module.exports = function(config) {
           {
             test: /(\.jsx)|(\.js)$/,
             exclude: /(tests|node_modules|bower_components)\//,
-            loader: 'isparta-instrumenter-loader'
+            loader: 'isparta-loader'
           },
           {
             test: /\.json$/,
