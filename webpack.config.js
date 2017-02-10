@@ -14,18 +14,33 @@ const PATHS = {
 const loaders = [
   {
     test: /\.scss$/,
-    loader: 'style!css?sourceMap!postcss!sass?sourceMap',
+    use: [
+      'style-loader',
+      'css-loader?sourceMap',
+      {
+        loader: 'postcss-loader',
+        options: {
+          plugins: function () {
+            return [
+              require('postcss-flexbugs-fixes'),
+              require('autoprefixer')({ browsers: ['last 2 versions'] })
+            ];
+          }
+        }
+      },
+      'sass-loader?sourceMap'
+    ],
     include: PATHS.scss
   },
   {
     test: /\.js$/,
-    loaders: ['babel?cacheDirectory'],
+    loader: 'babel-loader?cacheDirectory',
     include: [ PATHS.main, PATHS.js ]
   },
   {
     test: /\.js$/,
     loader: 'eslint-loader',
-    exclude: /node_modules/
+    include: [ PATHS.main, PATHS.js ]
   }
 ];
 
@@ -38,7 +53,7 @@ const common = {
     libraryTarget: 'umd'
   },
   module: {
-    loaders: loaders
+    rules: loaders
   },
   plugins: [
     new CleanWebpackPlugin(['dist'], {
@@ -46,23 +61,32 @@ const common = {
       verbose: false,
       dry: false
     })
-  ],
-  postcss: function () {
-    return [
-      require('postcss-flexbugs-fixes'),
-      require('autoprefixer')({ browsers: ['last 2 versions'] })
-    ];
-  }
+  ]
 };
 
 module.exports = Object.assign(common, {
   start: {},
   build: {
     module: Object.assign({}, common.module, {
-      loaders: [
+      rules: [
         {
           test: /\.scss$/,
-          loader: 'style!css!postcss!sass',
+          use: [
+            'style-loader',
+            'css-loader',
+            {
+              loader: 'postcss-loader',
+              options: {
+                plugins: function () {
+                  return [
+                    require('postcss-flexbugs-fixes'),
+                    require('autoprefixer')({ browsers: ['last 2 versions'] })
+                  ];
+                }
+              }
+            },
+            'sass-loader'
+          ],
           include: PATHS.scss
         },
         ...loaders.slice(1, loaders.length)
