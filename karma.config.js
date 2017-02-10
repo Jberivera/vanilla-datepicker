@@ -39,25 +39,25 @@ module.exports = function(config) {
         noParse: [
           /node_modules\/sinon\//
         ],
-        preLoaders: [
+        rules: [
           {
             test: /(\.jsx)|(\.js)$/,
+            enforce: 'pre',
             exclude: /(tests|node_modules|bower_components)\//,
             loader: 'isparta-loader'
           },
           {
-            test: /\.json$/,
-            loader: 'json'
-          }
-        ],
-        loaders: [
-          {
             test: /\.scss$/,
-            loader: 'style!css?sourceMap!postcss!sass?sourceMap',
+            use: [
+              'style-loader',
+              'css-loader?modules',
+              'sass-loader'
+            ]
           },
           {
-            test: /\.js$/, exclude: /(bower_components|node_modules)/,
-            loader: 'babel'
+            test: /\.js$/,
+            loader: 'babel-loader',
+            exclude: /(bower_components|node_modules)/
           }
         ]
       },
@@ -66,8 +66,8 @@ module.exports = function(config) {
       ]
     },
     webpackMiddleware: {
-     noInfo: true,
-     stats: 'errors-only'
-   }
+      noInfo: true,
+      stats: 'errors-only'
+    }
   });
 };
