@@ -38,8 +38,6 @@ It renders the datepicker through each group of following markup
 </div>
 ```
 
-![datepicker](https://i.imgur.com/UgCmG5O.jpg)
-
 ### Callback
 
 Provide a callback to get an update (date) from each field and its reference
@@ -66,8 +64,6 @@ Use one level of specificity to modify colors
   background: darkcyan;
 }
 ```
-
-![datepicker](https://i.imgur.com/D6RieHO.jpg)
 
 ## Config Object
 
