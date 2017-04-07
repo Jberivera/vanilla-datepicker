@@ -42,9 +42,8 @@ module.exports = function(config) {
         rules: [
           {
             test: /(\.jsx)|(\.js)$/,
-            enforce: 'pre',
             exclude: /(tests|node_modules|bower_components)\//,
-            loader: 'isparta-loader'
+            loader: 'istanbul-instrumenter-loader'
           },
           {
             test: /\.scss$/,
